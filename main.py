@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import random
 
 # Función para cargar las preguntas desde un archivo JSON
 def load_questions(filepath):
@@ -8,15 +9,17 @@ def load_questions(filepath):
     return data['questions']
 
 # Configuración inicial de la página
-st.set_page_config(page_title="ExamTests", page_icon="📚✒️")
+st.set_page_config(page_title="ExamTests", page_icon="🚀")
 
 # Estado inicial de la sesión
 if 'answers' not in st.session_state:
-    st.session_state['answers'] = []
+    st.session_state['answers'] = {}
 if 'questions' not in st.session_state:
-    st.session_state['questions'] = None
+    st.session_state['questions'] = {'Data Engineer Google Cloud': None, 'PowerBI': None}
 if 'random_mode' not in st.session_state:
-    st.session_state['random_mode'] = False
+    st.session_state['random_mode'] = {'Data Engineer Google Cloud': False, 'PowerBI': False}
+if 'current_question_idx' not in st.session_state:
+    st.session_state['current_question_idx'] = {'Data Engineer Google Cloud': 0, 'PowerBI': 0}
 
 # Estilo personalizado para el diseño
 st.markdown(
@@ -58,10 +61,7 @@ def show_question(question, question_idx):
         st.image(question['url'], use_column_width=True)
 
     # Verificar si existe una respuesta para esta pregunta
-    if len(st.session_state['answers']) <= question_idx:
-        st.session_state['answers'].append([])
-
-    selected_options = st.session_state['answers'][question_idx]
+    selected_options = st.session_state['answers'].get(question_idx, [])
     correct_options = question['answer']
     option_mapping = {opt[0]: opt for opt in question['options']}  # Mapear la letra con la opción
 
@@ -92,25 +92,53 @@ def show_question(question, question_idx):
 
 # Botón para activar el modo aleatorio
 random_mode = st.sidebar.checkbox("Modo Aleatorio")
-if random_mode:
-    st.session_state['random_mode'] = True
-else:
-    st.session_state['random_mode'] = False
 
 # Botones para cargar diferentes archivos JSON con preguntas
 st.sidebar.markdown("### Cargar Preguntas")
 file_option = st.sidebar.radio("Seleccionar Categoría:", ('Data Engineer Google Cloud', 'PowerBI'))
 
 if file_option == 'Data Engineer Google Cloud':
-    st.session_state['questions'] = load_questions('./questionscloud.json')
+    if st.session_state['questions']['Data Engineer Google Cloud'] is None:
+        st.session_state['questions']['Data Engineer Google Cloud'] = load_questions('./questionscloud.json')
+    st.session_state['random_mode']['Data Engineer Google Cloud'] = random_mode
+    questions = st.session_state['questions']['Data Engineer Google Cloud']
 elif file_option == 'PowerBI':
-    st.session_state['questions'] = load_questions('./questionspower.json')
+    if st.session_state['questions']['PowerBI'] is None:
+        st.session_state['questions']['PowerBI'] = load_questions('./questionspower.json')
+    st.session_state['random_mode']['PowerBI'] = random_mode
+    questions = st.session_state['questions']['PowerBI']
 
 # Mostrar preguntas
-if st.session_state['questions']:
-    for idx, question in enumerate(st.session_state['questions']):
-        show_question(question, idx)
+if questions:
+    if st.session_state['random_mode'][file_option]:
+        if 'random_questions_order' not in st.session_state:
+            st.session_state['random_questions_order'] = list(range(len(questions)))
+            random.shuffle(st.session_state['random_questions_order'])
+        
+        random_order = st.session_state['random_questions_order']
+        current_question_idx = st.session_state['current_question_idx'][file_option]
+
+        if current_question_idx < len(random_order):
+            show_question(questions[random_order[current_question_idx]], random_order[current_question_idx])
+
+            # Avanzar a la siguiente pregunta si se selecciona una respuesta
+            if st.session_state['answers'].get(random_order[current_question_idx]):
+                st.session_state['current_question_idx'][file_option] += 1
+        else:
+            st.write("¡Has completado todas las preguntas!")
+
+    else:
+        current_question_idx = st.session_state['current_question_idx'][file_option]
+        if current_question_idx < len(questions):
+            show_question(questions[current_question_idx], current_question_idx)
+
+            # Avanzar a la siguiente pregunta si se selecciona una respuesta
+            if st.session_state['answers'].get(current_question_idx):
+                st.session_state['current_question_idx'][file_option] += 1
+        else:
+            st.write("¡Has completado todas las preguntas!")
 
 # Limpiar sesión si se cambia de archivo
-if st.session_state['questions'] is None:
-    st.session_state['answers'] = []
+if questions is None:
+    st.session_state['answers'] = {}
+    st.session_state['current_question_idx'] = {'Data Engineer Google Cloud': 0, 'PowerBI': 0}
