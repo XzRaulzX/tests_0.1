@@ -23,10 +23,8 @@ if 'random_question_idxs' not in st.session_state:
     random.shuffle(st.session_state['random_question_idxs'])
 if 'current_random_idx' not in st.session_state:
     st.session_state['current_random_idx'] = 0
-if 'show_answer' not in st.session_state:
-    st.session_state['show_answer'] = False
-if 'current_answer' not in st.session_state:
-    st.session_state['current_answer'] = None
+if 'random_shown_questions' not in st.session_state:
+    st.session_state['random_shown_questions'] = []
 
 # Título
 st.title("Formulario de Preguntas")
@@ -62,17 +60,11 @@ def show_question(question, question_idx):
                 else:
                     selected_option.append(option)
                 st.session_state['answers'][question_idx] = selected_option
-                st.session_state['show_answer'] = True
-                st.session_state['current_answer'] = option
 
         # Mostrar la respuesta correcta si se ha seleccionado una opción
-        if st.session_state['show_answer']:
+        if selected_option:
             correct_answers = [option_mapping[opt] for opt in correct_option]
             st.markdown(f"<h3 style='color:green;'>Respuestas correctas: {', '.join(correct_answers)}</h3>", unsafe_allow_html=True)
-            if st.session_state['random_mode'] and st.button("Siguiente Pregunta"):
-                st.session_state['current_random_idx'] += 1
-                st.session_state['show_answer'] = False
-                st.session_state['answers'][question_idx] = None
 
     else:  # Pregunta de opción única
         columns = st.columns(len(question['options']))
@@ -86,20 +78,14 @@ def show_question(question, question_idx):
 
             if columns[col_idx].button(button_label, key=f"q{question_idx}_opt{col_idx}"):
                 st.session_state['answers'][question_idx] = option
-                st.session_state['show_answer'] = True
-                st.session_state['current_answer'] = option
 
         # Mostrar la respuesta correcta si se ha seleccionado una opción
-        if st.session_state['show_answer']:
+        if selected_option is not None:
             correct_answer = option_mapping[correct_option]
-            if st.session_state['current_answer'] == correct_answer:
+            if selected_option == correct_option:
                 st.markdown(f"<h3 style='color:green;'>Correcto: {correct_answer}</h3>", unsafe_allow_html=True)
             else:
                 st.markdown(f"<h3 style='color:red;'>Incorrecto. Respuesta correcta: {correct_answer}</h3>", unsafe_allow_html=True)
-            if st.session_state['random_mode'] and st.button("Siguiente Pregunta"):
-                st.session_state['current_random_idx'] += 1
-                st.session_state['show_answer'] = False
-                st.session_state['answers'][question_idx] = None
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
@@ -113,9 +99,24 @@ else:
 if st.session_state['random_mode']:
     if st.session_state['current_random_idx'] < len(st.session_state['random_question_idxs']):
         random_question_idx = st.session_state['random_question_idxs'][st.session_state['current_random_idx']]
-        show_question(questions[random_question_idx], random_question_idx)
+        
+        # Verificar si la pregunta aleatoria ya se ha mostrado
+        while random_question_idx in st.session_state['random_shown_questions']:
+            st.session_state['current_random_idx'] += 1
+            if st.session_state['current_random_idx'] >= len(st.session_state['random_question_idxs']):
+                break
+            random_question_idx = st.session_state['random_question_idxs'][st.session_state['current_random_idx']]
+        
+        if st.session_state['current_random_idx'] < len(st.session_state['random_question_idxs']):
+            show_question(questions[random_question_idx], random_question_idx)
     else:
         st.write("No hay más preguntas en modo aleatorio.")
+
+    # Botón para siguiente pregunta aleatoria
+    if st.button("Siguiente Pregunta Aleatoria"):
+        st.session_state['current_random_idx'] += 1
+        st.session_state['answers'] = [None] * len(questions)
+        st.session_state['random_shown_questions'] = []
 else:
     # Mostrar preguntas para la página actual
     page = st.session_state['page']
