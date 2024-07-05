@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-import random
 
 # Función para cargar las preguntas desde un archivo JSON
 def load_questions(filepath):
@@ -13,11 +12,9 @@ st.set_page_config(page_title="ExamTests", page_icon="📚✒️")
 
 # Estado inicial de la sesión
 if 'answers' not in st.session_state:
-    st.session_state['answers'] = None
+    st.session_state['answers'] = []
 if 'questions' not in st.session_state:
     st.session_state['questions'] = None
-if 'current_random_idx' not in st.session_state:
-    st.session_state['current_random_idx'] = 0
 if 'random_mode' not in st.session_state:
     st.session_state['random_mode'] = False
 
@@ -60,28 +57,36 @@ def show_question(question, question_idx):
     if 'url' in question and question['url']:
         st.image(question['url'], use_column_width=True)
 
-    selected_option = st.session_state['answers']
-    correct_option = question['answer']
+    # Verificar si existe una respuesta para esta pregunta
+    if len(st.session_state['answers']) <= question_idx:
+        st.session_state['answers'].append([])
+
+    selected_options = st.session_state['answers'][question_idx]
+    correct_options = question['answer']
     option_mapping = {opt[0]: opt for opt in question['options']}  # Mapear la letra con la opción
 
     # Crear botones para las opciones
-    columns = st.columns(len(question['options']))
     for col_idx, option in enumerate(question['options']):
         button_label = option
-        if selected_option is not None:
-            if option == option_mapping[correct_option]:
-                if option == selected_option:
-                    button_label = f"✅ {option}"
-                elif selected_option != correct_option:
-                    button_label = f"❌ {option}"
+        if option[0] in selected_options:
+            if option[0] in correct_options:
+                button_label = f"✅ {option}"
+            else:
+                button_label = f"❌ {option}"
 
         if st.button(button_label, key=f"q{question_idx}_opt{col_idx}"):
-            st.session_state['answers'] = option
+            if option[0] in selected_options:
+                selected_options.remove(option[0])
+            else:
+                selected_options.append(option[0])
+            st.session_state['answers'][question_idx] = selected_options
 
-    # Mostrar respuesta correcta después de seleccionar una opción
-    if selected_option is not None:
-        correct_answer = option_mapping[correct_option]
-        st.markdown(f"<h3 style='color:blue;'>Respuesta correcta: {correct_answer}</h3>", unsafe_allow_html=True)
+    # Mostrar respuestas correctas después de seleccionar una opción
+    if selected_options:
+        if set(selected_options) == set(correct_options):
+            st.markdown(f"<h3 style='color:green;'>¡Respuesta(s) correcta(s)!</h3>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<h3 style='color:red;'>Respuesta(s) incorrecta(s). La(s) correcta(s) es(son): {', '.join(correct_options)}</h3>", unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -94,7 +99,7 @@ else:
 
 # Botones para cargar diferentes archivos JSON con preguntas
 st.sidebar.markdown("### Cargar Preguntas")
-file_option = st.sidebar.radio("Seleccionar Categoria:", ('Data Engineer Google Cloud', 'PowerBI'))
+file_option = st.sidebar.radio("Seleccionar Categoría:", ('Data Engineer Google Cloud', 'PowerBI'))
 
 if file_option == 'Data Engineer Google Cloud':
     st.session_state['questions'] = load_questions('./questionscloud.json')
@@ -103,20 +108,9 @@ elif file_option == 'PowerBI':
 
 # Mostrar preguntas
 if st.session_state['questions']:
-    if st.session_state['random_mode']:
-        if st.session_state['current_random_idx'] < len(st.session_state['questions']):
-            random_question_idx = st.session_state['current_random_idx']
-            show_question(st.session_state['questions'][random_question_idx], random_question_idx)
-
-            # Botón para siguiente pregunta aleatoria
-            if st.button("Siguiente Pregunta"):
-                st.session_state['current_random_idx'] += 1
-                st.session_state['answers'] = None
-    else:
-        for idx in range(len(st.session_state['questions'])):
-            show_question(st.session_state['questions'][idx], idx)
+    for idx, question in enumerate(st.session_state['questions']):
+        show_question(question, idx)
 
 # Limpiar sesión si se cambia de archivo
 if st.session_state['questions'] is None:
-    st.session_state['answers'] = None
-    st.session_state['current_random_idx'] = 0
+    st.session_state['answers'] = []

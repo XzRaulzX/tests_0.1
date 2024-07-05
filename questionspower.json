@@ -1,0 +1,215 @@
+{
+    "questions": [
+      {
+        "question": "You have a PBIX file that imports data from a Microsoft Excel data source stored in a file share on a local network.\n\nYou are notified that the Excel data source was moved to a new location.\n\nYou need to update the PBIX file to use the new location.\n\nWhat are three ways to achieve the goal? Each correct answer presents a complete solution.\n\nNOTE: Each correct selection is worth one point.",
+        "options": [
+          "A. From the Datasets settings of the Power BI service, configure the data source credentials.",
+          "B. From the Data source settings in Power BI Desktop, configure the file path.",
+          "C. From Current File in Power BI Desktop, configure the Data Load settings.",
+          "D. From Power Query Editor, use the formula bar to configure the file path for the applied step.",
+          "E. From Advanced Editor in Power Query Editor, configure the file path in the M code."
+        ],
+        "answer": ["B", "D", "E"]
+      },
+      {
+        "question": "You are creating a report in Power BI Desktop.\n\nYou load a data extract that includes a free text field named coll.\n\nYou need to analyze the frequency distribution of the string lengths in col1. The solution must not affect the size of the model.\n\nWhat should you do?",
+        "options": [
+          "A. In the report, add a DAX calculated column that calculates the length of col1.",
+          "B. In the report, add a DAX function that calculates the average length of col1.",
+          "C. From Power Query Editor, add a column that calculates the length of col1.",
+          "D. From Power Query Editor, change the distribution for the Column profile to group by length for col1."
+        ],
+        "answer": "C"
+      },
+      {
+        "question": "You have a collection of reports for the HR department of your company. The datasets use row-level security (RLS). The company has multiple sales regions.\n\nEach sales region has an HR manager.\n\nYou need to ensure that the HR managers can interact with the data from their region only. The HR managers must be prevented from changing the layout of the reports.\n\nHow should you provision access to the reports for the HR managers?",
+        "options": [
+          "A. Publish the reports in an app and grant the HR managers access permission.",
+          "B. Create a new workspace, copy the datasets and reports, and add the HR managers as members of the workspace.",
+          "C. Publish the reports to a different workspace other than the one hosting the datasets.",
+          "D. Add the HR managers as members of the existing workspace that hosts the reports and the datasets."
+        ],
+        "answer": "A"
+      },
+      {
+        "question": "You need to provide a user with the ability to add members to a workspace. The solution must use the principle of least privilege.\n\nWhich role should you assign to the user?",
+        "options": [
+          "A. Viewer",
+          "B. Admin",
+          "C. Contributor",
+          "D. Member"
+        ],
+        "answer": "D"
+      },
+      {
+        "question": "You have a Power BI query named Sales that imports the columns shown in the following table.\nUsers only use the date part of the Sales_Date field. Only rows with a Status of Finished are used in analysis.\nYou need to reduce the load times of the query without affecting the analysis.\nWhich two actions achieve this goal? Each correct answer presents a complete solution.\n\nNOTE: Each correct selection is worth one point.",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0006900002.jpg",
+        "options": [
+          "A. Remove the rows in which Sales[Status] has a value of Canceled.",
+          "B. Remove Sales[Sales_Date].",
+          "C. Change the data type of Sale[Delivery_Time] to Integer.",
+          "D. Split Sales[Sale_Date] into separate date and time columns.",
+          "E. Remove Sales[Canceled Date]."
+        ],
+        "answer": ["A", "D"]
+      },
+      {
+        "question": "You build a report to analyze customer transactions from a database that contains the tables shown in the following table.\nYou import the tables.\nWhich relationship should you use to link the tables?",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0007100001.jpg",
+        "options": [
+          "A. one-to-many from Transaction to Customer",
+          "B. one-to-one between Customer and Transaction",
+          "C. many-to-many between Customer and Transaction",
+          "D. one-to-many from Customer to Transaction"
+        ],
+        "answer": "D"
+      },
+      {
+        "question": "You have a custom connector that returns ID, From, To, Subject, Body, and Has Attachments for every email sent during the past year. More than 10 million records are returned.\nYou build a report analyzing the internal networks of employees based on whom they send emails to.\nYou need to prevent report recipients from reading the analyzed emails. The solution must minimize the model size.\nWhat should you do?",
+        "options": [
+          "A. From Model view, set the Subject and Body columns to Hidden.",
+          "B. Remove the Subject and Body columns during the import.",
+          "C. Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent."
+        ],
+        "answer": "C"
+      },
+      {
+        "question": "You have the Power BI model shown in the following exhibit.\nA manager can represent only a single country.\nYou need to use row-level security (RLS) to meet the following requirements:\n✑ The managers must only see the data of their respective country.\n✑ The number of RLS roles must be minimized.\nWhich two actions should you perform? Each correct answer presents a complete solution.\n\nNOTE: Each correct selection is worth one point.",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0007700001.jpg",
+        "options": [
+          "A. Create a single role that filters Country[Manager_Email] by using the USERNAME DAX function.",
+          "B. Create a single role that filters Country[Manager_Email] by using the USEROBJECTID DAX function.",
+          "C. For the relationship between Purchase Detail and Purchase, select Apply security filter in both directions.",
+          "D. Create one role for each country.",
+          "E. For the relationship between Purchase and Purchase Detail, change the Cross filter direction to Single."
+        ],
+        "answer": ["A", "D"]
+      },
+      {
+        "question": "You build a report to analyze customer transactions from a database that contains the tables shown in the following table.",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0007100001.jpg",
+        "options": [
+          "A. one-to-many from Transaction to Customer",
+          "B. one-to-one between Customer and Transaction",
+          "C. many-to-many between Customer and Transaction",
+          "D. one-to-many from Customer to Transaction"
+        ],
+        "answer": "D"
+      },
+      {
+        "question": "You have a custom connector that returns ID, From, To, Subject, Body, and Has Attachments for every email sent during the past year. More than 10 million records are returned.\nYou build a report analyzing the internal networks of employees based on whom they send emails to.\nYou need to prevent report recipients from reading the analyzed emails. The solution must minimize the model size.\nWhat should you do?",
+        "options": [
+          "A. From Model view, set the Subject and Body columns to Hidden.",
+          "B. Remove the Subject and Body columns during the import.",
+          "C. Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent."
+        ],
+        "answer": "C"
+      },
+      {
+        "question": "You have the Power BI model shown in the following exhibit.\nA manager can represent only a single country.\nYou need to use row-level security (RLS) to meet the following requirements:\n✑ The managers must only see the data of their respective country.\n✑ The number of RLS roles must be minimized.\nWhich two actions should you perform? Each correct answer presents a complete solution.",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0007700001.jpg",
+        "options": [
+          "A. Create a single role that filters Country[Manager_Email] by using the USERNAME DAX function.",
+          "B. Create a single role that filters Country[Manager_Email] by using the USEROBJECTID DAX function.",
+          "C. For the relationship between Purchase Detail and Purchase, select Apply security filter in both directions.",
+          "D. Create one role for each country.",
+          "E. For the relationship between Purchase and Purchase Detail, change the Cross filter direction to Single."
+        ],
+        "answer": ["A", "D"]
+      },
+      {
+        "question": "You have the Power BI model shown in the following exhibit.There are four departments in the Departments table.\nYou need to ensure that users can see the data of their respective department only.\nWhat should you do?",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0010700001.jpg",
+        "options": [
+          "A. Create a slicer that filters Departments based on DepartmentID.",
+          "B. Create a row-level security (RLS) role for each department, and then define the membership of the role.",
+          "C. Create a DepartmentID parameter to filter the Departments table.",
+          "D. To the ConfidentialData table, add a calculated measure that uses the CURRENTGROUP DAX function."
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "In Power BI Desktop, you are building a sales report that contains two tables. Both tables have row-level security (RLS) configured.\nYou need to create a relationship between the tables. The solution must ensure that bidirectional cross-filtering honors the RLS settings.\nWhat should you do?",
+        "options": [
+          "A. Create an inactive relationship between the tables and select Apply security filter in both directions.",
+          "B. Create an active relationship between the tables and select Apply security filter in both directions.",
+          "C. Create an inactive relationship between the tables and select Assume referential integrity.",
+          "D. Create an active relationship between the tables and select Assume referential integrity."
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "You are modeling data by using Microsoft Power BI. Part of the data model is a large Microsoft SQL Server table named Order that has more than 100 million records.\nDuring the development process, you need to import a sample of the data from the Order table.\n\nSolution: From Power Query Editor, you import the table and then add a filter step to the query.\n\nDoes this meet the goal?",
+        "options": [
+          "A. Yes",
+          "B. No"
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "You are modeling data by using Microsoft Power BI. Part of the data model is a large Microsoft SQL Server table named Order that has more than 100 million records.\nDuring the development process, you need to import a sample of the data from the Order table.\n\nSolution: You write a DAX expression that uses the FILTER function.\n\nDoes this meet the goal?",
+        "options": [
+          "A. Yes",
+          "B. No"
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "You are modeling data by using Microsoft Power BI. Part of the data model is a large Microsoft SQL Server table named Order that has more than 100 million records.\nDuring the development process, you need to import a sample of the data from the Order table.\n\nSolution: You add a WHERE clause to the SQL statement.\n\nDoes this meet the goal?",
+        "options": [
+          "A. Yes",
+          "B. No"
+        ],
+        "answer": "A"
+      },
+      {
+        "question": "In Power BI Desktop, you are building a sales report that contains two tables. Both tables have row-level security (RLS) configured.\nYou need to create a relationship between the tables. The solution must ensure that bidirectional cross-filtering honors the RLS settings.\nWhat should you do?",
+        "options": [
+          "A. Create an inactive relationship between the tables and select Apply security filter in both directions.",
+          "B. Create an active relationship between the tables and select Apply security filter in both directions.",
+          "C. Create an inactive relationship between the tables and select Assume referential integrity.",
+          "D. Create an active relationship between the tables and select Assume referential integrity."
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "You have the Power BI model shown in the following exhibit.\nThere are four departments in the Departments table.\nYou need to ensure that users can see the data of their respective department only.\nWhat should you do?",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0010700001.jpg",
+        "options": [
+          "A. Create a slicer that filters Departments based on DepartmentID.",
+          "B. Create a row-level security (RLS) role for each department, and then define the membership of the role.",
+          "C. Create a DepartmentID parameter to filter the Departments table.",
+          "D. To the ConfidentialData table, add a calculated measure that uses the CURRENTGROUP DAX function."
+        ],
+        "answer": "B"
+      },
+      {
+        "question": "You have the tables shown in the following table.\n\nThe Impressions table contains approximately 30 million records per month.\nYou need to create an ad analytics system to meet the following requirements:\n\u2711 Present ad impression counts for the day, campaign, and site_name. The analytics for the last year are required.\nMinimize the data model size.\n\nWhich two actions should you perform? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.\nURL IMAGEN: https://www.examtopics.com/assets/media/exam-media/04331/0011400001.png",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0011400001.png",
+        "options": [
+          "A. Create one-to-many relationships between the tables.",
+          "B. Group the Impressions query in Power Query by Ad_id, Site_name, and Impression_date. Aggregate by using the CountRows function.",
+          "C. Create a calculated table that contains Ad_id, Site_name, and Impression_date.",
+          "D. Create a calculated measure that aggregates by using the COUNTROWS function."
+        ],
+        "answer": ["A", "B"]
+      },
+      {
+        "question": "You import a Power BI dataset that contains the following tables:\n\u2711 Date\n\u2711 Product\n\u2711 Product Inventory\nThe Product Inventory table contains 25 million rows. A sample of the data is shown in the following table.\n\nThe Product Inventory table relates to the Date table by using the DateKey column. The Product Inventory table relates to the Product table by using the ProductKey column.\nYou need to reduce the size of the data model without losing information.",
+        "url": "https://www.examtopics.com/assets/media/exam-media/04331/0011900004.png",
+        "options": [
+          "A. Change Summarization for DateKey to Don't Summarize.",
+          "B. Remove the relationship between Date and Product Inventory.",
+          "C. Change the data type of UnitCost to Integer.",
+          "D. Remove MovementDate."
+        ],
+        "answer": ["D"]
+      }
+      
+      
+        
+      
+      
+    ]
+  }
+  
