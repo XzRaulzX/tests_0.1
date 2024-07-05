@@ -10,6 +10,8 @@ def load_questions(filepath):
 
 # Cargar preguntas
 questions = load_questions('./questions.json')
+# Título y logo
+st.set_page_config(page_title="ExamTests", page_icon=":microscope:")
 
 # Estado inicial
 if 'answers' not in st.session_state:
@@ -23,8 +25,6 @@ if 'random_question_idxs' not in st.session_state:
     random.shuffle(st.session_state['random_question_idxs'])
 if 'current_random_idx' not in st.session_state:
     st.session_state['current_random_idx'] = 0
-if 'random_shown_questions' not in st.session_state:
-    st.session_state['random_shown_questions'] = []
 
 # Título
 st.title("Formulario de Preguntas")
@@ -38,59 +38,59 @@ def show_question(question, question_idx):
     st.subheader(f"Pregunta {question_idx + 1}")
     st.write(question['question'])
 
-    selected_option = st.session_state['answers'][question_idx]
-    correct_option = question['answer']
+    # Mostrar imagen si existe la URL
+    if 'url' in question and question['url']:
+        st.image(question['url'], use_column_width=True)
+
+    selected_options = st.session_state['answers'][question_idx]
+    correct_options = question['answer']
     option_mapping = {opt[0]: opt for opt in question['options']}  # Map the letter to the option
 
     # Crear botones para las opciones
-    if isinstance(correct_option, list):  # Pregunta de opción múltiple
-        if selected_option is None:
-            selected_option = []
+    if isinstance(correct_options, list):  # Pregunta de opción múltiple
         columns = st.columns(len(question['options']))
         for col_idx, option in enumerate(question['options']):
             button_label = option
-            if option in selected_option:
-                if option in correct_option:
-                    button_label = f"✅ {option}"
-                else:
-                    button_label = f"❌ {option}"
+            if selected_options and option[0] in selected_options:
+                button_label = f"✅ {option}"
             if columns[col_idx].button(button_label, key=f"q{question_idx}_opt{col_idx}"):
-                if option in selected_option:
-                    selected_option.remove(option)
+                if selected_options is None:
+                    selected_options = []
+                if option[0] in selected_options:
+                    selected_options.remove(option[0])
                 else:
-                    selected_option.append(option)
-                st.session_state['answers'][question_idx] = selected_option
+                    selected_options.append(option[0])
+                st.session_state['answers'][question_idx] = selected_options
 
-        # Mostrar la respuesta correcta si se ha seleccionado una opción
-        if selected_option:
-            correct_answers = [option_mapping[opt] for opt in correct_option]
-            st.markdown(f"<h3 style='color:green;'>Respuestas correctas: {', '.join(correct_answers)}</h3>", unsafe_allow_html=True)
+        # Mostrar respuestas correctas después de que se presione un botón
+        if selected_options:
+            correct_answers = ''.join([opt[0] for opt in correct_options])
+            st.markdown(f"<h3 style='color:blue;'>Respuesta(s) correcta(s): {correct_answers}</h3>", unsafe_allow_html=True)
 
     else:  # Pregunta de opción única
         columns = st.columns(len(question['options']))
         for col_idx, option in enumerate(question['options']):
             button_label = option
-            if selected_option is not None:
-                if option == option_mapping[correct_option]:
-                    button_label = f"✅ {option}"
-                elif option == selected_option:
-                    button_label = f"❌ {option}"
+            if selected_options is not None:
+                if option == option_mapping[correct_options]:
+                    if option == selected_options:
+                        button_label = f"✅ {option}"
+                    elif selected_options != correct_options:
+                        button_label = f"❌ {option}"
 
             if columns[col_idx].button(button_label, key=f"q{question_idx}_opt{col_idx}"):
                 st.session_state['answers'][question_idx] = option
 
-        # Mostrar la respuesta correcta si se ha seleccionado una opción
-        if selected_option is not None:
-            correct_answer = option_mapping[correct_option]
-            if selected_option == correct_option:
-                st.markdown(f"<h3 style='color:green;'>Correcto: {correct_answer}</h3>", unsafe_allow_html=True)
-            else:
-                st.markdown(f"<h3 style='color:red;'>Incorrecto. Respuesta correcta: {correct_answer}</h3>", unsafe_allow_html=True)
+        # Mostrar respuesta correcta después de que se presione un botón
+        if selected_options is not None:
+            correct_answer = option_mapping[correct_options]
+            st.markdown(f"<h3 style='color:blue;'>Respuesta correcta: {correct_answer}</h3>", unsafe_allow_html=True)
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
 # Botón para modo aleatorio
-if st.checkbox("Modo Aleatorio"):
+random_mode = st.checkbox("Modo Aleatorio")
+if random_mode:
     st.session_state['random_mode'] = True
 else:
     st.session_state['random_mode'] = False
@@ -99,24 +99,13 @@ else:
 if st.session_state['random_mode']:
     if st.session_state['current_random_idx'] < len(st.session_state['random_question_idxs']):
         random_question_idx = st.session_state['random_question_idxs'][st.session_state['current_random_idx']]
-        
-        # Verificar si la pregunta aleatoria ya se ha mostrado
-        while random_question_idx in st.session_state['random_shown_questions']:
-            st.session_state['current_random_idx'] += 1
-            if st.session_state['current_random_idx'] >= len(st.session_state['random_question_idxs']):
-                break
-            random_question_idx = st.session_state['random_question_idxs'][st.session_state['current_random_idx']]
-        
-        if st.session_state['current_random_idx'] < len(st.session_state['random_question_idxs']):
-            show_question(questions[random_question_idx], random_question_idx)
-    else:
-        st.write("No hay más preguntas en modo aleatorio.")
+        show_question(questions[random_question_idx], random_question_idx)
 
-    # Botón para siguiente pregunta aleatoria
-    if st.button("Siguiente Pregunta Aleatoria"):
-        st.session_state['current_random_idx'] += 1
-        st.session_state['answers'] = [None] * len(questions)
-        st.session_state['random_shown_questions'] = []
+        # Botón para siguiente pregunta aleatoria
+        if st.button("Siguiente Pregunta"):
+            st.session_state['current_random_idx'] += 1
+            st.session_state['answers'] = [None] * len(questions)
+
 else:
     # Mostrar preguntas para la página actual
     page = st.session_state['page']

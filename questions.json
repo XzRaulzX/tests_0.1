@@ -2,6 +2,7 @@
   "questions": [
     {
       "question": "Your company built a TensorFlow neutral-network model with a large number of neurons and layers. The model fits well for the training data. However, when tested against new data, it performs poorly. What method can you employ to address this?",
+      "url": "https://ethic.es/wp-content/uploads/2023/03/imagen.jpg",
       "options": [
         "A. Threading",
         "B. Serialization",
@@ -100,7 +101,7 @@
         "E. Segregate data across multiple tables or databases.",
         "F. Use Google Stackdriver Audit Logging to determine policy violations."
       ],
-      "answer": ["BDE"]
+      "answer": ["B", "D", "E"]
     }
   ]
 }
