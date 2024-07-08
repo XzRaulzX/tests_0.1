@@ -20,8 +20,16 @@ if 'random_mode' not in st.session_state:
     st.session_state['random_mode'] = {'Data Engineer Google Cloud': False, 'PowerBI': False}
 if 'current_question_idx' not in st.session_state:
     st.session_state['current_question_idx'] = {'Data Engineer Google Cloud': 0, 'PowerBI': 0}
+if 'puntuacion_check' not in st.session_state:
+    st.session_state['puntuacion_check'] = 0
+if 'puntuacion_x' not in st.session_state:
+    st.session_state['puntuacion_x'] = 0
+if 'total_questions' not in st.session_state:
+    st.session_state['total_questions'] = 0
+if 'test_completed' not in st.session_state:
+    st.session_state['test_completed'] = False
 
-# Estilo personalizado para el diseño
+# Estilo personalizado para el diseño y puntuación
 st.markdown(
     """
     <style>
@@ -44,6 +52,17 @@ st.markdown(
         border-radius: 5px;
         margin-top: 20px;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .footer-content div {
+        flex: 1;
+        text-align: center;
+    }
+    .footer-content .score {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
     }
     </style>
     """,
@@ -84,9 +103,11 @@ def show_question(question, question_idx):
     # Mostrar respuestas correctas después de seleccionar una opción
     if selected_options:
         if set(selected_options) == set(correct_options):
-            st.markdown(f"<h3 style='color:green;'>¡Respuesta(s) correcta(s)!</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color:green;'>✅ ¡Respuesta(s) correcta(s)!</h3>", unsafe_allow_html=True)
+            st.session_state['puntuacion_check'] += 1
         else:
-            st.markdown(f"<h3 style='color:red;'>Respuesta(s) incorrecta(s). La(s) correcta(s) es(son): {', '.join(correct_options)}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color:red;'>❌ Respuesta(s) incorrecta(s). La(s) correcta(s) es(son): {', '.join(correct_options)}</h3>", unsafe_allow_html=True)
+            st.session_state['puntuacion_x'] += 1
 
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -125,7 +146,7 @@ if questions:
             if st.session_state['answers'].get(random_order[current_question_idx]):
                 st.session_state['current_question_idx'][file_option] += 1
         else:
-            st.write("¡Has completado todas las preguntas!")
+            st.session_state['test_completed'] = True
 
     else:
         current_question_idx = st.session_state['current_question_idx'][file_option]
@@ -136,9 +157,43 @@ if questions:
             if st.session_state['answers'].get(current_question_idx):
                 st.session_state['current_question_idx'][file_option] += 1
         else:
-            st.write("¡Has completado todas las preguntas!")
+            st.session_state['test_completed'] = True
 
-# Limpiar sesión si se cambia de archivo
-if questions is None:
-    st.session_state['answers'] = {}
-    st.session_state['current_question_idx'] = {'Data Engineer Google Cloud': 0, 'PowerBI': 0}
+# Mostrar puntuación actualizada en el pie de página
+st.markdown(
+    """
+    <div class="footer-content">
+        <div>
+            <h3 class="score">Puntuación check:</h3>
+            <p>{}</p>
+        </div>
+        <div>
+            <h3 class="score">Puntuación X:</h3>
+            <p>{}</p>
+        </div>
+    </div>
+    """.format(st.session_state['puntuacion_check'], st.session_state['puntuacion_x']),
+    unsafe_allow_html=True
+)
+
+# Mostrar resultado del test al finalizar
+if st.session_state['test_completed']:
+    total_questions = len(questions)
+    puntuacion_check = st.session_state['puntuacion_check']
+    puntuacion_x = st.session_state['puntuacion_x']
+    percentaje_aprobado = (puntuacion_check / total_questions) * 100
+
+    if percentaje_aprobado > 75:
+        st.markdown(
+            f"<h2 style='color:green;'>Felicidades, has aprobado con un {percentaje_aprobado}% de respuestas correctas!</h2>",
+            unsafe_allow_html=True
+        )
+    else:
+        st.markdown(
+            f"<h2 style='color:red;'>Has suspendido con un {percentaje_aprobado}% de respuestas correctas.</h2>",
+            unsafe_allow_html=True
+        )
+
+# Botón para sumar 1 a la puntuación al hacer clic
+if st.button("Elección Multiple"):
+    st.session_state['puntuacion_check'] += 1
