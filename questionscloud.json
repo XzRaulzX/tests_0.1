@@ -319,16 +319,6 @@
       "answer": "B"
     },
     {
-      "question": "",
-      "options": [
-        "",
-        "",
-        "",
-        ""
-      ],
-      "answer": ""
-    },
-    {
       "question": "You need to copy millions of sensitive patient records from a relational database to BigQuery. The total size of the database is 10 TB. You need to design a solution that is secure and time-efficient. What should you do?",
       "options": [
         "A. Export the records from the database as an Avro file. Upload the file to GCS using gsutil, and then load the Avro file into BigQuery using the BigQuery web UI in the GCP Console.",
