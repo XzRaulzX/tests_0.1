@@ -129,11 +129,6 @@ elif file_option == 'PowerBI':
     st.session_state['random_mode']['PowerBI'] = random_mode
     questions = st.session_state['questions']['PowerBI']
 
-# Navegación directa a una pregunta específica
-question_number = st.sidebar.number_input("Número de Pregunta:", min_value=1, max_value=len(questions), step=1)
-if question_number:
-    st.session_state['current_question_idx'][file_option] = question_number - 1
-
 # Mostrar preguntas
 if questions:
     if st.session_state['random_mode'][file_option]:
