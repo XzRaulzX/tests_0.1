@@ -1,6 +1,324 @@
 {
   "questions": [
-   
+{
+    "question": "You are developing an application on Google Cloud that will automatically generate subject labels for users' blog posts. You are under competitive pressure to add this feature quickly, and you have no additional developer resources. No one on your team has experience with machine learning. What should you do?",
+    "url": "",
+    "options": [
+      "A. Call the Cloud Natural Language API from your application. Process the generated Entity Analysis as labels.",
+      "B. Call the Cloud Natural Language API from your application. Process the generated Sentiment Analysis as labels.",
+      "C. Build and train a text classification model using TensorFlow. Deploy the model using Cloud Machine Learning Engine. Call the model from your application and process the results as labels.",
+      "D. Build and train a text classification model using TensorFlow. Deploy the model using a Kubernetes Engine cluster. Call the model from your application and process the results as labels."
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "You are designing storage for 20 TB of text files as part of deploying a data pipeline on Google Cloud. Your input data is in CSV format. You want to minimize the cost of querying aggregate values for multiple users who will query the data in Cloud Storage with multiple engines. Which storage service and schema design should you use?",
+    "url": "",
+    "options": [
+      "A. Use Cloud Bigtable for storage. Install the HBase shell on a Compute Engine instance to query the Cloud Bigtable data.",
+      "B. Use Cloud Bigtable for storage. Link as permanent tables in BigQuery for query.",
+      "C. Use Cloud Storage for storage. Link as permanent tables in BigQuery for query.",
+      "D. Use Cloud Storage for storage. Link as temporary tables in BigQuery for query."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You are designing storage for two relational tables that are part of a 10-TB database on Google Cloud. You want to support transactions that scale horizontally. You also want to optimize data for range queries on non-key columns. What should you do?",
+    "url": "",
+    "options": [
+      "A. Use Cloud SQL for storage. Add secondary indexes to support query patterns.",
+      "B. Use Cloud SQL for storage. Use Cloud Dataflow to transform data to support query patterns.",
+      "C. Use Cloud Spanner for storage. Add secondary indexes to support query patterns.",
+      "D. Use Cloud Spanner for storage. Use Cloud Dataflow to transform data to support query patterns."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Your financial services company is moving to cloud technology and wants to store 50 TB of financial time-series data in the cloud. This data is updated frequently and new data will be streaming in all the time. Your company also wants to move their existing Apache Hadoop jobs to the cloud to get insights into this data. Which product should they use to store the data?",
+    "url": "",
+    "options": [
+      "A. Cloud Bigtable",
+      "B. Google BigQuery",
+      "C. Google Cloud Storage",
+      "D. Google Cloud Datastore"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "An organization maintains a Google BigQuery dataset that contains tables with user-level data. They want to expose aggregates of this data to other Google Cloud projects, while still controlling access to the user-level data. Additionally, they need to minimize their overall storage cost and ensure the analysis cost for other projects is assigned to those projects. What should they do?",
+    "url": "",
+    "options": [
+      "A. Create and share an authorized view that provides the aggregate results.",
+      "B. Create and share a new dataset and view that provides the aggregate results.",
+      "C. Create and share a new dataset and table that contains the aggregate results.",
+      "D. Create dataViewer Identity and Access Management (IAM) roles on the dataset to enable sharing."
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Government regulations in your industry mandate that you have to maintain an auditable record of access to certain types of data. Assuming that all expiring logs will be archived correctly, where should you store data that is subject to that mandate?",
+    "url": "",
+    "options": [
+      "A. Encrypted on Cloud Storage with user-supplied encryption keys. A separate decryption key will be given to each authorized user.",
+      "B. In a BigQuery dataset that is viewable only by authorized personnel, with the Data Access log used to provide the auditability.",
+      "C. In Cloud SQL, with separate database user names to each user. The Cloud SQL Admin activity logs will be used to provide the auditability.",
+      "D. In a bucket on Cloud Storage that is accessible only by an AppEngine service that collects user information and logs the access before providing a link to the bucket."
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Your neural network model is taking days to train. You want to increase the training speed. What can you do?",
+    "url": "",
+    "options": [
+      "A. Subsample your test dataset.",
+      "B. Subsample your training dataset.",
+      "C. Increase the number of input features to your model.",
+      "D. Increase the number of layers in your neural network."
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "You are responsible for writing your company's ETL pipelines to run on an Apache Hadoop cluster. The pipeline will require some checkpointing and splitting pipelines. Which method should you use to write the pipelines?",
+    "url": "",
+    "options": [
+      "A. PigLatin using Pig",
+      "B. HiveQL using Hive",
+      "C. Java using MapReduce",
+      "D. Python using MapReduce"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Your company maintains a hybrid deployment with GCP, where analytics are performed on your anonymized customer data. The data are imported to Cloud Storage from your data center through parallel uploads to a data transfer server running on GCP. Management informs you that the daily transfers take too long and have asked you to fix the problem. You want to maximize transfer speeds. Which action should you take?",
+    "url": "",
+    "options": [
+      "A. Increase the CPU size on your server.",
+      "B. Increase the size of the Google Persistent Disk on your server.",
+      "C. Increase your network bandwidth from your datacenter to GCP.",
+      "D. Increase your network bandwidth from Compute Engine to Cloud Storage."
+    ],
+    "answer": "C"
+  },
+  {
+     "question": "MJTelco Case Study -\n\nCompany Overview -\nMJTelco is a startup that plans to build networks in rapidly growing, underserved markets around the world. The company has patents for innovative optical communications hardware. Based on these patents, they can create many reliable, high-speed backbone links with inexpensive hardware.\n\nCompany Background -\nFounded by experienced telecom executives, MJTelco uses technologies originally developed to overcome communications challenges in space. Fundamental to their operation, they need to create a distributed data infrastructure that drives real-time analysis and incorporates machine learning to continuously optimize their topologies. Because their hardware is inexpensive, they plan to overdeploy the network allowing them to account for the impact of dynamic regional politics on location availability and cost. Their management and operations teams are situated all around the globe creating many-to-many relationship between data consumers and provides in their system. After careful consideration, they decided public cloud is the perfect environment to support their needs.\n\nSolution Concept -\nMJTelco is running a successful proof-of-concept (PoC) project in its labs. They have two primary needs:\n✑ Scale and harden their PoC to support significantly more data flows generated when they ramp to more than 50,000 installations.\n✑ Refine their machine-learning cycles to verify and improve the dynamic models they use to control topology definition.\nMJTelco will also use three separate operating environments \" development/test, staging, and production \" to meet the needs of running experiments, deploying new features, and serving production customers.\n\nBusiness Requirements -\n✑ Scale up their production environment with minimal cost, instantiating resources when and where needed in an unpredictable, distributed telecom user community.\n✑ Ensure security of their proprietary data to protect their leading-edge machine learning and analysis.\n✑ Provide reliable and timely access to data for analysis from distributed research workers.\n✑ Maintain isolated environments that support rapid iteration of their machine-learning models without affecting their customers.\n\nTechnical Requirements -\nEnsure secure and efficient transport and storage of telemetry data.\nRapidly scale instances to support between 10,000 and 100,000 data providers with multiple flows each.\nAllow analysis and presentation against data tables tracking up to 2 years of data storing approximately 100m records/day.\nSupport rapid iteration of monitoring infrastructure focused on awareness of data pipeline problems both in telemetry flows and in production learning cycles.\n\nCEO Statement -\nOur business model relies on our patents, analytics and dynamic machine learning. Our inexpensive hardware is organized to be highly reliable, which gives us cost advantages. We need to quickly stabilize our large distributed data pipelines to meet our reliability and capacity commitments.\n\nCTO Statement -\nOur public cloud services must operate as advertised. We need resources that scale and keep our data secure. We also need environments in which our data scientists can carefully study and quickly adapt our models. Because we rely on automation to process our data, we also need our development and test environments to work as we iterate.\n\nCFO Statement -\nThe project is too large for us to maintain the hardware and software required for the data and analysis. Also, we cannot afford to staff an operations team to monitor so many data feeds, so we will rely on automation and infrastructure. Google Cloud's machine learning will allow our quantitative researchers to work on our high-value problems instead of problems with our data pipelines.\nMJTelco is building a custom interface to share data. They have these requirements:\n1. They need to do aggregations over their petabyte-scale datasets.\n2. They need to scan specific time range rows with a very fast response time (milliseconds).\nWhich combination of Google Cloud Platform products should you recommend?",
+    "url": "",
+    "options": [
+      "A. Cloud Datastore and Cloud Bigtable",
+      "B. Cloud Bigtable and Cloud SQL",
+      "C. BigQuery and Cloud Bigtable",
+      "D. BigQuery and Cloud Storage"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "CFO Statement - The project is too large for us to maintain the hardware and software required for the data and analysis. Also, we cannot afford to staff an operations team to monitor so many data feeds, so we will rely on automation and infrastructure. Google Cloud's machine learning will allow our quantitative researchers to work on our high-value problems instead of problems with our data pipelines.\nYou need to compose visualization for operations teams with the following requirements:\n✑ Telemetry must include data from all 50,000 installations for the most recent 6 weeks (sampling once every minute)\n✑ The report must not be more than 3 hours delayed from live data.\n✑ The actionable report should only show suboptimal links.\n✑ Most suboptimal links should be sorted to the top.\nSuboptimal links can be grouped and filtered by regional geography.\n\n✑ User response time to load the report must be <5 seconds.\nYou create a data source to store the last 6 weeks of data, and create visualizations that allow viewers to see multiple date ranges, distinct geographic regions, and unique installation types. You always show the latest data without any changes to your visualizations. You want to avoid creating and updating new visualizations each month. What should you do?",
+    "url": "",
+    "options": [
+      "A. Look through the current data and compose a series of charts and tables, one for each possible combination of criteria.",
+      "B. Look through the current data and compose a small set of generalized charts and tables bound to criteria filters that allow value selection.",
+      "C. Export the data to a spreadsheet, compose a series of charts and tables, one for each possible combination of criteria, and spread them across multiple tabs.",
+      "D. Load the data into relational database tables, write a Google App Engine application that queries all rows, summarizes the data across each criteria, and then renders results using the Google Charts and visualization API."
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "CFO Statement - The project is too large for us to maintain the hardware and software required for the data and analysis. Also, we cannot afford to staff an operations team to monitor so many data feeds, so we will rely on automation and infrastructure. Google Cloud's machine learning will allow our quantitative researchers to work on our high-value problems instead of problems with our data pipelines.\nGiven the record streams MJTelco is interested in ingesting per day, they are concerned about the cost of Google BigQuery increasing. MJTelco asks you to provide a design solution. They require a single large data table called tracking_table. Additionally, they want to minimize the cost of daily queries while performing fine-grained analysis of each day's events. They also want to use streaming ingestion. What should you do?",
+    "url": "",
+    "options": [
+      "A. Create a table called tracking_table and include a DATE column.",
+      "B. Create a partitioned table called tracking_table and include a TIMESTAMP column.",
+      "C. Create sharded tables for each day following the pattern tracking_table_YYYYMMDD.",
+      "D. Create a table called tracking_table with a TIMESTAMP column to represent the day."
+    ],
+    "answer": "B"
+  },
+  
+  {
+    "question": "CFO Statement - Part of our competitive advantage is that we penalize ourselves for late shipments and deliveries. Knowing where out shipments are at all times has a direct correlation to our bottom line and profitability. Additionally, I don't want to commit capital to building out a server environment.\nFlowlogistic's management has determined that the current Apache Kafka servers cannot handle the data volume for their real-time inventory tracking system.\nYou need to build a new system on Google Cloud Platform (GCP) that will feed the proprietary tracking software. The system must be able to ingest data from a variety of global sources, process and query in real-time, and store the data reliably. Which combination of GCP products should you choose?",
+    "url": "",
+    "options": [
+      "A. Cloud Pub/Sub, Cloud Dataflow, and Cloud Storage",
+      "B. Cloud Pub/Sub, Cloud Dataflow, and Local SSD",
+      "C. Cloud Pub/Sub, Cloud SQL, and Cloud Storage",
+      "D. Cloud Load Balancing, Cloud Dataflow, and Cloud Storage",
+      "E. Cloud Dataflow, Cloud SQL, and Cloud Storage"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "After migrating ETL jobs to run on BigQuery, you need to verify that the output of the migrated jobs is the same as the output of the original. You've loaded a table containing the output of the original job and want to compare the contents with output from the migrated job to show that they are identical. The tables do not contain a primary key column that would enable you to join them together for comparison. What should you do?",
+    "url": "",
+    "options": [
+      "A. Select random samples from the tables using the RAND() function and compare the samples.",
+      "B. Select random samples from the tables using the HASH() function and compare the samples.",
+      "C. Use a Dataproc cluster and the BigQuery Hadoop connector to read the data from each table and calculate a hash from non-timestamp columns of the table after sorting. Compare the hashes of each table.",
+      "D. Create stratified random samples using the OVER() function and compare equivalent samples from each table."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You are a head of BI at a large enterprise company with multiple business units that each have different priorities and budgets. You use on-demand pricing for BigQuery with a quota of 2K concurrent on-demand slots per project. Users at your organization sometimes don't get slots to execute their query and you need to correct this. You'd like to avoid introducing new projects to your account. What should you do?",
+    "url": "",
+    "options": [
+      "A. Convert your batch BQ queries into interactive BQ queries.",
+      "B. Create an additional project to overcome the 2K on-demand per-project quota.",
+      "C. Switch to flat-rate pricing and establish a hierarchical priority model for your projects.",
+      "D. Increase the amount of concurrent slots per project at the Quotas page at the Cloud Console."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You have an Apache Kafka cluster on-prem with topics containing web application logs. You need to replicate the data to Google Cloud for analysis in BigQuery and Cloud Storage. The preferred replication method is mirroring to avoid deployment of Kafka Connect plugins. What should you do?",
+    "options": [
+      "A. Deploy a Kafka cluster on GCE VM Instances. Configure your on-prem cluster to mirror your topics to the cluster running in GCE. Use a Dataproc cluster or Dataflow job to read from Kafka and write to GCS.",
+      "B. Deploy a Kafka cluster on GCE VM Instances with the Pub/Sub Kafka connector configured as a Sink connector. Use a Dataproc cluster or Dataflow job to read from Kafka and write to GCS.",
+      "C. Deploy the Pub/Sub Kafka connector to your on-prem Kafka cluster and configure Pub/Sub as a Source connector. Use a Dataflow job to read from Pub/Sub and write to GCS.",
+      "D. Deploy the Pub/Sub Kafka connector to your on-prem Kafka cluster and configure Pub/Sub as a Sink connector. Use a Dataflow job to read from Pub/Sub and write to GCS."
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "You've migrated a Hadoop job from an on-prem cluster to dataproc and GCS. Your Spark job is a complicated analytical workload that consists of many shuffling operations and initial data are parquet files (on average 200-400 MB size each). You see some degradation in performance after the migration to Dataproc, so you'd like to optimize for it. You need to keep in mind that your organization is very cost-sensitive, so you'd like to continue using Dataproc on preemptibles (with 2 non-preemptible workers only) for this workload. What should you do?",
+    "options": [
+      "A. Increase the size of your parquet files to ensure them to be 1 GB minimum.",
+      "B. Switch to TFRecords formats (approx. 200MB per file) instead of parquet files.",
+      "C. Switch from HDDs to SSDs, copy initial data from GCS to HDFS, run the Spark job and copy results back to GCS.",
+      "D. Switch from HDDs to SSDs, override the preemptible VMs configuration to increase the boot disk size."
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "Your team is responsible for developing and maintaining ETLs in your company. One of your Dataflow jobs is failing because of some errors in the input data, and you need to improve reliability of the pipeline (incl. being able to reprocess all failing data). What should you do?",
+    "options": [
+      "A. Add a filtering step to skip these types of errors in the future, extract erroneous rows from logs.",
+      "B. Add a try... catch block to your DoFn that transforms the data, extract erroneous rows from logs.",
+      "C. Add a try... catch block to your DoFn that transforms the data, write erroneous rows to Pub/Sub directly from the DoFn.",
+      "D. Add a try... catch block to your DoFn that transforms the data, use a sideOutput to create a PCollection that can be stored to Pub/Sub later."
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "You're training a model to predict housing prices based on an available dataset with real estate properties. Your plan is to train a fully connected neural net, and you've discovered that the dataset contains latitude and longitude of the property. Real estate professionals have told you that the location of the property is highly influential on price, so you'd like to engineer a feature that incorporates this physical dependency. What should you do?",
+    "options": [
+      "A. Provide latitude and longitude as input vectors to your neural net.",
+      "B. Create a numeric column from a feature cross of latitude and longitude.",
+      "C. Create a feature cross of latitude and longitude, bucketize it at the minute level and use L1 regularization during optimization.",
+      "D. Create a feature cross of latitude and longitude, bucketize it at the minute level and use L2 regularization during optimization."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You are deploying MariaDB SQL databases on GCE VM Instances and need to configure monitoring and alerting. You want to collect metrics including network connections, disk IO and replication status from MariaDB with minimal development effort and use StackDriver for dashboards and alerts. What should you do?",
+    "options": [
+      "A. Install the OpenCensus Agent and create a custom metric collection application with a StackDriver exporter.",
+      "B. Place the MariaDB instances in an Instance Group with a Health Check.",
+      "C. Install the StackDriver Logging Agent and configure fluentd in_tail plugin to read MariaDB logs.",
+      "D. Install the StackDriver Agent and configure the MySQL plugin."
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "You work for a bank. You have a labelled dataset that contains information on already granted loan applications and whether these applications have been defaulted. You have been asked to train a model to predict default rates for credit applicants. What should you do?",
+    "options": [
+      "A. Increase the size of the dataset by collecting additional data.",
+      "B. Train a linear regression to predict a credit default risk score.",
+      "C. Remove the bias from the data and collect applications that have been declined loans.",
+      "D. Match loan applicants with their social profiles to enable feature engineering."
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "You need to migrate a 2TB relational database to Google Cloud Platform. You do not have the resources to significantly refactor the application that uses this database and cost to operate is of primary concern. Which service do you select for storing and serving your data?",
+    "options": [
+      "A. Cloud Spanner",
+      "B. Cloud Bigtable",
+      "C. Cloud Firestore",
+      "D. Cloud SQL"
+    ],
+    "answer": "D"
+  },
+  {
+    "question": "You're using Bigtable for a real-time application, and you have a heavy load that is a mix of read and writes. You've recently identified an additional use case and need to perform hourly an analytical job to calculate certain statistics across the whole database. You need to ensure both the reliability of your production application as well as the analytical workload. What should you do?",
+    "options": [
+      "A. Export Bigtable dump to GCS and run your analytical job on top of the exported files.",
+      "B. Add a second cluster to an existing instance with a multi-cluster routing, use live-traffic app profile for your regular workload and batch-analytics profile for the analytics workload.",
+      "C. Add a second cluster to an existing instance with a single-cluster routing, use live-traffic app profile for your regular workload and batch-analytics profile for the analytics workload.",
+      "D. Increase the size of your existing cluster twice and execute your analytics workload on your new resized cluster."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You are designing an Apache Beam pipeline to enrich data from Cloud Pub/Sub with static reference data from BigQuery. The reference data is small enough to fit in memory on a single worker. The pipeline should write enriched results to BigQuery for analysis. Which job type and transforms should this pipeline use?",
+    "options": [
+      "A. Batch job, PubSubIO, side-inputs",
+      "B. Streaming job, PubSubIO, JdbcIO, side-outputs",
+      "C. Streaming job, PubSubIO, BigQueryIO, side-inputs",
+      "D. Streaming job, PubSubIO, BigQueryIO, side-outputs"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You have a data pipeline that writes data to Cloud Bigtable using well-designed row keys. You want to monitor your pipeline to determine when to increase the size of your Cloud Bigtable cluster. Which two actions can you take to accomplish this? (Choose two.)",
+    "options": [
+      "A. Review Key Visualizer metrics. Increase the size of the Cloud Bigtable cluster when the Read pressure index is above 100.",
+      "B. Review Key Visualizer metrics. Increase the size of the Cloud Bigtable cluster when the Write pressure index is above 100.",
+      "C. Monitor the latency of write operations. Increase the size of the Cloud Bigtable cluster when there is a sustained increase in write latency.",
+      "D. Monitor storage utilization. Increase the size of the Cloud Bigtable cluster when utilization increases above 70% of max capacity.",
+      "E. Monitor latency of read operations. Increase the size of the Cloud Bigtable cluster if read operations take longer than 100 ms."
+    ],
+    "answer": ["C", "D"]
+  },
+  {
+    "question": "You want to analyze hundreds of thousands of social media posts daily at the lowest cost and with the fewest steps. You have the following requirements: ✑ You will batch-load the posts once per day and run them through the Cloud Natural Language API. ✑ You will extract topics and sentiment from the posts. ✑ You must store the raw posts for archiving and reprocessing. ✑ You will create dashboards to be shared with people both inside and outside your organization. You need to store both the data extracted from the API to perform analysis as well as the raw social media posts for historical archiving. What should you do?",
+    "options": [
+      "A. Store the social media posts and the data extracted from the API in BigQuery.",
+      "B. Store the social media posts and the data extracted from the API in Cloud SQL.",
+      "C. Store the raw social media posts in Cloud Storage, and write the data extracted from the API into BigQuery.",
+      "D. Feed the social media posts into the API directly from the source, and write the extracted data from the API into BigQuery."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You store historic data in Cloud Storage. You need to perform analytics on the historic data. You want to use a solution to detect invalid data entries and perform data transformations that will not require programming or knowledge of SQL. What should you do?",
+    "options": [
+      "A. Use Cloud Dataflow with Beam to detect errors and perform transformations.",
+      "B. Use Cloud Dataprep with recipes to detect errors and perform transformations.",
+      "C. Use Cloud Dataproc with a Hadoop job to detect errors and perform transformations.",
+      "D. Use federated tables in BigQuery with queries to detect errors and perform transformations."
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Your company needs to upload their historic data to Cloud Storage. The security rules don't allow access from external IPs to their on-premises resources. After an initial upload, they will add new data from existing on-premises applications every day. What should they do?",
+    "options": [
+      "A. Execute gsutil rsync from the on-premises servers.",
+      "B. Use Dataflow and write the data to Cloud Storage.",
+      "C. Write a job template in Dataproc to perform the data transfer.",
+      "D. Install an FTP server on a Compute Engine VM to receive the files and move them to Cloud Storage."
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "You have a query that filters a BigQuery table using a WHERE clause on timestamp and ID columns. By using `bq query --dry_run`, you learn that the query triggers a full scan of the table, even though the filter on timestamp and ID select a tiny fraction of the overall data. You want to reduce the amount of data scanned by BigQuery with minimal changes to existing SQL queries. What should you do?",
+    "options": [
+      "A. Create a separate table for each ID.",
+      "B. Use the LIMIT keyword to reduce the number of rows returned.",
+      "C. Recreate the table with a partitioning column and clustering column.",
+      "D. Use the `bq query --maximum_bytes_billed` flag to restrict the number of bytes billed."
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "You have a requirement to insert minute-resolution data from 50,000 sensors into a BigQuery table. You expect significant growth in data volume and need the data to be available within 1 minute of ingestion for real-time analysis of aggregated trends. What should you do?",
+    "options": [
+      "A. Use `bq load` to load a batch of sensor data every 60 seconds.",
+      "B. Use a Cloud Dataflow pipeline to stream data into the BigQuery table.",
+      "C. Use the INSERT statement to insert a batch of data every 60 seconds.",
+      "D. Use the MERGE statement to apply updates in batch every 60 seconds."
+    ],
+    "answer": "B"
+  },
+     
     {
       "question": "You need to copy millions of sensitive patient records from a relational database to BigQuery. The total size of the database is 10 TB. You need to design a solution that is secure and time-efficient. What should you do?",
       "options": [
@@ -311,8 +629,8 @@
       "D. Import the new records from the CSV file into a new BigQuery table. Create a BigQuery job that merges the new records with the existing records and writes the results to a new BigQuery table."
     ],
     "answer": "D"
-  }
-
-  
+  }  
   ]
 }
+  
+
